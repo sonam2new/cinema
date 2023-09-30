@@ -8,7 +8,6 @@ public class TicketServiceImpl implements TicketService {
      * Should only have private methods other than the one below.
      */
 
-
     @Override
     public void purchaseTickets(Long accountId, TicketTypeRequest... ticketTypeRequests) throws InvalidPurchaseException {
         final double Infant_Price = 0.0;
@@ -19,7 +18,6 @@ public class TicketServiceImpl implements TicketService {
         int childCount = 0;
         int adultCount = 0;
         double totalPrice = 0.0;
-
 
         // Calculate the count of ticket and total price
         for (TicketTypeRequest req : ticketTypeRequests) {
@@ -50,4 +48,11 @@ public class TicketServiceImpl implements TicketService {
             throw new InvalidPurchaseException("Maximum of 20 tickets can be purchased at a time.");
         }
     }
+
+    private void validateChildAndInfantWithoutAdult(int infantCount,int adultCount){
+        if(infantCount > 0 && adultCount == 0) {
+            throw new InvalidPurchaseException("Infant tickets cannot be purchased without an Adult ticket.");
+        }
+    }
+    
 }
